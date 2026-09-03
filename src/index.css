@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-hand: 'Caveat', cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #ff2a2a;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid #ff2a2a;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff2a2a;
+}
+
+/* ── mobile performance & animation tuning ── */
+@media (max-width: 767px) {
+  /* stagger delays feel broken on a small screen — fire immediately */
+  [data-aos] {
+    transition-delay: 0s !important;
+    transition-duration: 500ms !important;
+  }
+  /* backdrop blur is the #1 scroll-lag cause on mobile GPUs */
+  .backdrop-blur-md,
+  .backdrop-blur-sm {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* custom AOS animation used by the hanging photo badge */
+[data-aos='drop-bounce'] {
+  opacity: 0;
+  transform: translateY(-90px);
+  transition-property: transform, opacity;
+}
+[data-aos='drop-bounce'].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: 1s;
+}
+
+/* preloader name reveal */
+@keyframes loader-letter {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.loader-letter {
+  display: inline-block;
+  opacity: 0;
+  animation: loader-letter 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
